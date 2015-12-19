@@ -3,7 +3,7 @@ clear all; clc;
 %imaqhwinfo;
 %webcamlist;
 
-%IM = imread('sample.jpg');
+%IM = imrotate(imread('sample.jpg'), 90);
 IM = snap();
 
 %parameters
@@ -26,12 +26,30 @@ while(true)
 end
 imshow(IM); h = viscircles(c,r);
 
+%sorting
+d = sortrows(c, 2);
+
 %centers
 hold on;
-for n = 1:size(c)
-    plot(c(n,1),c(n,2),'r.','MarkerSize',20);
+for n = 1:size(d)
+    plot(d(n,1),d(n,2),'r.','MarkerSize',20);
 end
 
-disp(r);
+disp(d);
+if(~emptyStrip)
+    nextAvailTablet = d(1,:);
+end
+disp('Next Tablet Center: ');
+disp(nextAvailTablet);
+
+comPort = 'COM4';
+s = serial(comPort);
+set (s, 'DataBits' , 8 );
+set (s, 'StopBits' , 1 );
+set (s, 'BaudRate' , 9600 );
+set (s, 'Parity' , 'none' );
+fopen(s);
+fprintf(s, '%c', 'aa');
+fclose(s);
 clear all;
 

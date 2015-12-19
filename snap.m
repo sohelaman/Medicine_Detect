@@ -16,5 +16,6 @@ function y = snap(width, height)
     set(vid, 'ReturnedColorSpace', 'RGB');
     img = getsnapshot(vid);
     y = imresize(img, [height, width]);
+    %y = imrotate(y, 90);
 
 end
