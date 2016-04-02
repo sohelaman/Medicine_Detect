@@ -17,5 +17,6 @@ function y = snap(width, height)
     img = getsnapshot(vid);
     y = imresize(img, [height, width]);
     %y = imrotate(y, 90);
+    %bw = im2bw(y);
 
 end
